@@ -1,74 +1,86 @@
-# Formulario de Agendamiento de Citas - Consultorio Psicológico
+# Plataforma de Agendamiento
 
-Una aplicación web simple y responsiva para agendar citas en un consultorio psicológico. Incluye validaciones, selección de fecha/hora, precios dinámicos y simulación de backend.
+Aplicación completa para gestionar citas de un consultorio psicológico. Incluye un frontend estático servido por Nginx, un backend en Node.js/Express con MySQL y un panel administrativo.
 
-## 🚀 Características
+## 🧭 Componentes
+- **Frontend** (`Frontend/`): HTML/CSS/JS estático con Nginx (puerto 80).
+- **Backend** (`Backend/`): API REST en Express que maneja reservas, correos y (opcional) WhatsApp (puerto 3000).
+- **Base de datos** (`db/`): MySQL 8.0 con esquema y datos de ejemplo en `db/init.sql`.
+- **Panel admin** (`admin/`): HTML/JS estático para gestionar citas (se puede servir con cualquier servidor estático).
 
-- **Formulario Interactivo**: Campos para email, edad, motivo, fecha y hora con validaciones en tiempo real.
-- **Selector de Fecha**: Usa Flatpickr para fechas futuras, deshabilitando sábados y domingos.
-- **Horarios Dinámicos**: Carga opciones de hora con precios asociados al seleccionar una fecha.
-- **Simulación de API**: Funciones simuladas para guardar citas y enviar correos.
-- **Persistencia**: Guarda el estado del formulario en LocalStorage.
-- **UI Moderna**: Estilos responsivos con Tailwind CSS y animaciones.
-- **Accesibilidad**: Diseño adaptable a móviles y desktop.
+## 🔧 Prerrequisitos
+- Docker y Docker Compose.
+- Node.js 18+ y npm (solo si quieres correr sin contenedores).
 
-## 🛠 Tecnologías
+## 🚀 Pasos rápidos con Docker Compose (recomendado)
+1. Clona el repositorio y entra en la carpeta:
+   ```bash
+   git clone <repo_url>
+   cd plataforma_de_agendamiento
+   ```
+2. Copia el entorno del backend y ajusta valores según necesidad:
+   ```bash
+   cd Backend
+   cp .env.example .env
+   # Ajusta credenciales de email/WhatsApp si los usarás.
+   cd ..
+   ```
+   Variables clave:
+   - `ENABLE_WHATSAPP` (`false` por defecto) evita lanzar Chromium en desarrollo.
+   - `ENABLE_EMAIL` (`true` por defecto) usa nodemailer; en `false` solo registra en consola.
+   - `DB_*` ya apunta al contenedor `db` que levanta `docker-compose.yml`.
+3. Levanta los servicios (desde la raíz del repo):
+   ```bash
+   docker compose up -d db backend frontend
+   ```
+4. Comprueba que el backend inició correctamente:
+   ```bash
+   docker compose logs -f backend
+   ```
+   Verás mensajes de conexión a MySQL y el estado de WhatsApp/Email.
+5. Accede a la aplicación:
+   - Frontend público: http://localhost (servido por Nginx).
+   - API: http://localhost:3000 (por ejemplo `GET /api/available-times/2025-01-01`).
+6. (Opcional) Panel admin estático: sirve la carpeta `admin/` con cualquier servidor estático, por ejemplo:
+   ```bash
+   npx serve admin -l 8080
+   ```
+   Ajusta las URLs dentro de `admin/` si tu backend corre en otra dirección.
 
-- **HTML5**: Estructura de la página.
-- **CSS3 + Tailwind CSS**: Estilos y responsividad.
-- **JavaScript (ES6+)**: Lógica del formulario y eventos.
-- **Librerías**: Flatpickr (fechas), Font Awesome (íconos).
+### Puertos y volúmenes
+- **80**: Frontend (Nginx) apuntando a `Frontend/`.
+- **3000**: Backend Express.
+- **3307**: MySQL (mapeado al 3306 interno del contenedor `db`).
+- Volúmenes: `db_data` (persistencia MySQL) y `whatsapp_session` (sesiones de WhatsApp Web).
 
-## 📁 Estructura del Proyecto/ 
-├── index.html # Página principal HTML 
-├── estilos.css # Estilos personalizados 
-├── script.js # Lógica JavaScript └── README.md # Esta documentación
+### Credenciales y datos de ejemplo
+- Base de datos se inicializa con `db/init.sql` (appointments y usuarios admin de muestra).
+- Usuario admin de ejemplo: `admin` con contraseña ya hasheada en la tabla `admin`.
 
+## 🧪 Ejecución manual sin Docker
+1. **Base de datos**: instala MySQL local, crea la base y carga el esquema:
+   ```bash
+   mysql -u root -p < db/init.sql
+   ```
+2. **Backend**:
+   ```bash
+   cd Backend
+   cp .env.example .env
+   # Ajusta DB_HOST/USER/PASSWORD/NAME a tu instancia local
+   npm install
+   npm run dev   # o npm start
+   ```
+3. **Frontend**: sirve la carpeta estática `Frontend/` con el servidor que prefieras (ej.: `npx serve Frontend -l 8080`) o abre `index.html` directamente.
+4. **Panel admin**: igual que el frontend, sirve `admin/` de forma estática.
 
-## 🔧 Instalación y Uso
-
-1. **Clona o descarga** los archivos en una carpeta local.
-2. **Abre `index.php`** en un navegador web moderno.
-3. **Llena el formulario**:
-   - Ingresa datos válidos (email, edad >=18, motivo).
-   - Selecciona una fecha (solo días hábiles).
-   - Elige una hora para ver el precio.
-4. **Envía** para simular el agendamiento (verás carga y resumen).
-5. **Reinicia** con el botón "Agendar otra cita".
-
-### Pruebas
-- Verifica validaciones: Campos vacíos o inválidos muestran errores.
-- Persistencia: Recarga la página y el formulario se restaura.
-- Consola: Abre DevTools para logs de errores.
-
-## 📝 Correcciones Aplicadas
-- **Sintaxis**: Corregido template literal en resumen de edad.
-- **Fechas**: Deshabilita sábados y domingos.
-- **Timing**: `fetchAvailableTimes` ahora es asíncrona para evitar race conditions.
-- **Validaciones**: Mejorada extracción de precios y reinicio completo.
-- **Errores**: Manejo robusto en envío del formulario.
+## 🔍 Comandos útiles
+- Detener servicios Docker: `docker compose down`
+- Reconstruir contenedores tras cambios en código backend: `docker compose build backend && docker compose up -d backend`
+- Probar estado de WhatsApp: `curl http://localhost:3000/api/whatsapp/status`
 
 ## 🤝 Contribución
-- Forkea el repo y envía pull requests.
-- Reporta bugs o sugerencias en issues.
+- Haz fork, crea una rama y envía PRs.
+- Por favor no subas archivos `.env` ni credenciales reales.
 
 ## 📄 Licencia
-MIT License - Úsalo libremente.
-
----
-
-**Desarrollado para fines educativos. ¡Mejora la salud mental con tecnología!** 🧠
-
-## 🧪 Entorno de desarrollo del backend
-
-Para poder probar el servidor sin depender de servicios externos (WhatsApp o credenciales de correo) sigue estos pasos:
-
-1. Ve a la carpeta del backend: `cd Backend`.
-2. Copia el archivo de ejemplo: `cp .env.example .env` y completa las credenciales que necesites.
-   - Usa `ENABLE_WHATSAPP=false` para evitar levantar Chromium durante el desarrollo.
-   - Usa `ENABLE_EMAIL=false` si solo quieres registrar los correos en consola.
-3. Instala dependencias: `npm install`.
-4. Levanta la base de datos y el backend con Docker: `docker-compose up -d db backend` (desde la raíz del repositorio).
-5. Consulta el estado de WhatsApp en `GET /api/whatsapp/status` y los horarios en `GET /api/available-times/:date`.
-
-> Con esta configuración puedes ejecutar y depurar el API sin requerir un navegador embebido o credenciales sensibles, haciendo más ágil las pruebas locales.
+MIT License.
