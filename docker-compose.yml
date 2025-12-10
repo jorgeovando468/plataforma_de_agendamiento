@@ -21,7 +21,7 @@ services:
       start_period: 30s
 
   backend:
-    build: ./backend
+    build: ./Backend
     container_name: consultorio-backend
     restart: unless-stopped
     ports:
@@ -34,27 +34,30 @@ services:
       - JWT_SECRET=tu_jwt_secret_aqui
       - EMAIL_USER=jorgeovando468@gmail.com
       - EMAIL_PASS=gigkjgghajslexcu
-      - NODE_ENV=development  # <--- AGREGA ESTA LÍNEA
+      - ENABLE_WHATSAPP=false
+      - ENABLE_EMAIL=true
+      - NODE_ENV=development
+      - PORT=3000
     depends_on:
       db:
         condition: service_healthy
-    command: npm run dev  # <--- CAMBIA DE "npm start" A "npm run dev"
+    command: npm run dev
     volumes:
-      - ./backend:/app
+      - ./Backend:/app
       - /app/node_modules
       - whatsapp_session:/app/.wwebjs_auth
     networks:
       - consultorio-network
 
   frontend:
-    image: nginx:alpine  # <--- CAMBIA "build: ./frontend" POR ESTO
+    image: nginx:alpine
     container_name: consultorio-frontend
     restart: unless-stopped
     ports:
       - "80:80"
     volumes:
-      - ./frontend:/usr/share/nginx/html  # <--- QUITA EL ":ro" DEL FINAL
-      - ./frontend/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./Frontend:/usr/share/nginx/html
+      - ./Frontend/nginx.conf:/etc/nginx/conf.d/default.conf
     networks:
       - consultorio-network
 

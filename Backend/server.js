@@ -7,7 +7,9 @@ const qrcode = require('qrcode-terminal');
 require('dotenv').config();
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
+const ENABLE_WHATSAPP = process.env.ENABLE_WHATSAPP === 'true';
+const ENABLE_EMAIL = process.env.ENABLE_EMAIL !== 'false';
 
 // Middleware
 app.use(cors());
@@ -17,73 +19,88 @@ app.use(express.json());
 const db = require('./db');
 
 // Configuración de Nodemailer
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
-  }
-});
+let transporter = null;
+if (ENABLE_EMAIL && process.env.EMAIL_USER && process.env.EMAIL_PASS) {
+  transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS
+    }
+  });
+} else {
+  console.log('📨 Envío de correos deshabilitado o credenciales faltantes. Se registrarán en consola.');
+}
 
 // Inicialización de WhatsApp con persistencia
-const client = new Client({
-  authStrategy: new LocalAuth({
-    dataPath: './.wwebjs_auth'
-  }),
-  puppeteer: {
-    headless: true,
-    args: [
-      '--no-sandbox',
-      '--disable-setuid-sandbox',
-      '--disable-dev-shm-usage',
-      '--disable-accelerated-2d-canvas',
-      '--no-first-run',
-      '--no-zygote',
-      '--disable-gpu'
-    ],
-    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || '/usr/bin/chromium-browser'
-  }
-});
+let client = null;
+if (ENABLE_WHATSAPP) {
+  client = new Client({
+    authStrategy: new LocalAuth({
+      dataPath: './.wwebjs_auth'
+    }),
+    puppeteer: {
+      headless: true,
+      args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-dev-shm-usage',
+        '--disable-accelerated-2d-canvas',
+        '--no-first-run',
+        '--no-zygote',
+        '--disable-gpu'
+      ],
+      executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || '/usr/bin/chromium-browser'
+    }
+  });
+}
 
 let whatsappReady = false;
 
-client.on('qr', qr => {
-  console.log('\n===========================================');
-  console.log('📱 ESCANEA ESTE QR CON WHATSAPP:');
-  console.log('===========================================\n');
-  qrcode.generate(qr, { small: true });
-  console.log('\n===========================================');
-  console.log('Abre WhatsApp > Dispositivos vinculados > Vincular dispositivo');
-  console.log('===========================================\n');
-});
+if (client) {
+  client.on('qr', qr => {
+    console.log('\n===========================================');
+    console.log('📱 ESCANEA ESTE QR CON WHATSAPP:');
+    console.log('===========================================\n');
+    qrcode.generate(qr, { small: true });
+    console.log('\n===========================================');
+    console.log('Abre WhatsApp > Dispositivos vinculados > Vincular dispositivo');
+    console.log('===========================================\n');
+  });
 
-client.on('authenticated', () => {
-  console.log('✅ WhatsApp autenticado correctamente');
-});
+  client.on('authenticated', () => {
+    console.log('✅ WhatsApp autenticado correctamente');
+  });
 
-client.on('ready', () => {
-  console.log('✅ WhatsApp Web está listo para enviar mensajes');
-  whatsappReady = true;
-});
+  client.on('ready', () => {
+    console.log('✅ WhatsApp Web está listo para enviar mensajes');
+    whatsappReady = true;
+  });
 
-client.on('auth_failure', msg => {
-  console.error('❌ Error de autenticación WhatsApp:', msg);
-  whatsappReady = false;
-});
+  client.on('auth_failure', msg => {
+    console.error('❌ Error de autenticación WhatsApp:', msg);
+    whatsappReady = false;
+  });
 
-client.on('disconnected', (reason) => {
-  console.log('⚠️  WhatsApp desconectado:', reason);
-  whatsappReady = false;
-});
+  client.on('disconnected', (reason) => {
+    console.log('⚠️  WhatsApp desconectado:', reason);
+    whatsappReady = false;
+  });
 
-// Inicializar WhatsApp
-console.log('🔄 Inicializando cliente de WhatsApp...');
-client.initialize().catch(err => {
-  console.error('❌ Error al inicializar WhatsApp:', err);
-});
+  // Inicializar WhatsApp
+  console.log('🔄 Inicializando cliente de WhatsApp...');
+  client.initialize().catch(err => {
+    console.error('❌ Error al inicializar WhatsApp:', err);
+  });
+} else {
+  console.log('📵 WhatsApp deshabilitado para este entorno.');
+}
 
 // Función auxiliar para enviar WhatsApp
 async function sendWhatsApp(telefono, mensaje) {
+  if (!client) {
+    return false;
+  }
   if (!whatsappReady) {
     console.log('⚠️  WhatsApp no está listo, mensaje no enviado');
     return false;
@@ -162,13 +179,18 @@ app.post('/api/appointments', async (req, res) => {
       `
     };
 
-    transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        console.log('❌ Error enviando email:', error);
-      } else {
-        console.log('✅ Email enviado:', info.response);
-      }
-    });
+    if (transporter) {
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.log('❌ Error enviando email:', error);
+        } else {
+          console.log('✅ Email enviado:', info.response);
+        }
+      });
+    } else {
+      console.log('📨 (Modo desarrollo) Email no enviado, contenido:');
+      console.log(mailOptions);
+    }
 
     // Enviar WhatsApp (no bloqueante)
     sendWhatsApp(telefono, mensajeConfirmacion);
@@ -186,9 +208,11 @@ app.post('/api/appointments', async (req, res) => {
 
 // Ruta de estado de WhatsApp
 app.get('/api/whatsapp/status', (req, res) => {
-  res.json({ 
-    status: whatsappReady ? 'connected' : 'disconnected',
-    ready: whatsappReady 
+  const status = client ? (whatsappReady ? 'connected' : 'initializing') : 'disabled';
+  res.json({
+    status,
+    ready: whatsappReady,
+    enabled: Boolean(client)
   });
 });
 
@@ -266,10 +290,14 @@ app.use('/api/admin', adminRoutes);
 
 // Iniciar servidor
 app.listen(PORT, () => {
+  const whatsappLog = client
+    ? `${whatsappReady ? '✅' : '⏳'} ${whatsappReady ? 'Listo' : 'Inicializando...'}`
+    : '🚫 Deshabilitado';
+
   console.log(`\n✅ Servidor corriendo en http://localhost:${PORT}`);
   console.log(`📊 Estado de servicios:`);
   console.log(`   - Base de datos: ✅ Conectada`);
-  console.log(`   - WhatsApp: ${whatsappReady ? '✅' : '⏳'} ${whatsappReady ? 'Listo' : 'Inicializando...'}`);
+  console.log(`   - WhatsApp: ${whatsappLog}`);
   console.log(`\n🔗 Endpoints disponibles:`);
   console.log(`   - POST /api/appointments`);
   console.log(`   - GET  /api/whatsapp/status`);

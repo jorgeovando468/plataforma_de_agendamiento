@@ -58,3 +58,17 @@ MIT License - Úsalo libremente.
 ---
 
 **Desarrollado para fines educativos. ¡Mejora la salud mental con tecnología!** 🧠
+
+## 🧪 Entorno de desarrollo del backend
+
+Para poder probar el servidor sin depender de servicios externos (WhatsApp o credenciales de correo) sigue estos pasos:
+
+1. Ve a la carpeta del backend: `cd Backend`.
+2. Copia el archivo de ejemplo: `cp .env.example .env` y completa las credenciales que necesites.
+   - Usa `ENABLE_WHATSAPP=false` para evitar levantar Chromium durante el desarrollo.
+   - Usa `ENABLE_EMAIL=false` si solo quieres registrar los correos en consola.
+3. Instala dependencias: `npm install`.
+4. Levanta la base de datos y el backend con Docker: `docker-compose up -d db backend` (desde la raíz del repositorio).
+5. Consulta el estado de WhatsApp en `GET /api/whatsapp/status` y los horarios en `GET /api/available-times/:date`.
+
+> Con esta configuración puedes ejecutar y depurar el API sin requerir un navegador embebido o credenciales sensibles, haciendo más ágil las pruebas locales.
