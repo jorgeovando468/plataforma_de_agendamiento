@@ -1,0 +1,13 @@
+# Dependencias de Node.js (instálalas con npm install)
+node_modules/
+
+# Archivos sensibles (credenciales)
+.env
+
+# Archivos temporales y logs
+*.log
+.DS_Store  # Para macOS
+Thumbs.db  # Para Windows
+
+# Base de datos (no subir archivos de DB; usa scripts SQL)
+*.sql  # Si tienes dumps, ignóralos; sube solo scripts de creación

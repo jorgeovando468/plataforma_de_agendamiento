@@ -1,0 +1,102 @@
+/* Estilos personalizados para el formulario de agendamiento */
+body {
+    font-family: 'Inter', sans-serif;
+    /* Usando el color de fondo de Bootstrap light */
+    background-color: #f8f9fa; /* Reemplaza #f9fafb de Tailwind */
+}
+
+/* Header Gradient: Usa el color primary de Bootstrap (#0d6efd) o un tono personalizado */
+.header-gradient {
+    /* Mantenemos tu gradiente original (indigo de Tailwind) */
+    background: linear-gradient(to right, #4f46e5, #6366f1);
+}
+
+.logo-img {
+    width: 80px; /* Equivalente a w-20 */
+    height: auto;
+    mix-blend-mode: multiply;
+}
+
+.logo-img-footer {
+    width: 60px;
+    height: auto;
+    mix-blend-mode: multiply;
+}
+
+
+/* Control de Formulario: Target form-control de Bootstrap */
+.form-control, .form-select {
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #4f46e5; /* Color primario personalizado */
+    box-shadow: 0 0 0 0.25rem rgba(99, 102, 241, 0.25); /* Sombra de foco más suave */
+}
+
+/* Botón Primario: Usando la clase personalizada para sobrescribir el .btn-primary de Bootstrap */
+.btn-primary {
+    background-color: #4f46e5;
+    border-color: #4f46e5;
+    transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: #4338ca;
+    border-color: #4338ca;
+}
+
+.btn-primary:focus {
+    box-shadow: 0 0 0 0.25rem rgba(99, 102, 241, 0.5); /* Sombra de foco del botón */
+}
+
+/* Card (Contenedores) */
+.card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important; /* Sombra más pronunciada al hacer hover */
+}
+
+/* Iconos Sociales en Footer */
+.social-icons a {
+    transition: color 0.2s;
+}
+
+.social-icons a.hover-info:hover {
+    color: #4f46e5 !important; /* Color personalizado para hover */
+}
+
+/* Utilidad para ocultar (Bootstrap usa .d-none, pero mantenemos .hidden de tu original para JS) */
+.hidden {
+    display: none !important;
+}
+
+/* Animaciones (Mantenidas) */
+.loading-spinner {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

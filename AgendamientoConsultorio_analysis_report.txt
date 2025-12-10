@@ -1,0 +1,698 @@
+Informe automático - Análisis inicial del proyecto AgendamientoConsultorio
+
+
+Archivos analizados (resumen):
+
+ - AgendamientoConsultorio/.git/COMMIT_EDITMSG
+ - AgendamientoConsultorio/.git/HEAD
+ - AgendamientoConsultorio/.git/config
+ - AgendamientoConsultorio/.git/description
+ - AgendamientoConsultorio/.git/hooks/applypatch-msg.sample
+ - AgendamientoConsultorio/.git/hooks/commit-msg.sample
+ - AgendamientoConsultorio/.git/hooks/fsmonitor-watchman.sample
+ - AgendamientoConsultorio/.git/hooks/post-update.sample
+ - AgendamientoConsultorio/.git/hooks/pre-applypatch.sample
+ - AgendamientoConsultorio/.git/hooks/pre-commit.sample
+ - AgendamientoConsultorio/.git/hooks/pre-merge-commit.sample
+ - AgendamientoConsultorio/.git/hooks/pre-push.sample
+ - AgendamientoConsultorio/.git/hooks/pre-rebase.sample
+ - AgendamientoConsultorio/.git/hooks/pre-receive.sample
+ - AgendamientoConsultorio/.git/hooks/prepare-commit-msg.sample
+ - AgendamientoConsultorio/.git/hooks/push-to-checkout.sample
+ - AgendamientoConsultorio/.git/hooks/sendemail-validate.sample
+ - AgendamientoConsultorio/.git/hooks/update.sample
+ - AgendamientoConsultorio/.git/index
+ - AgendamientoConsultorio/.git/info/exclude
+ - AgendamientoConsultorio/.git/logs/HEAD
+ - AgendamientoConsultorio/.git/logs/refs/heads/master
+ - AgendamientoConsultorio/.git/logs/refs/remotes/origin/master
+ - AgendamientoConsultorio/.git/objects/0f/55d4d5de38d953fb9f4da637a3cb2f55d7fe18
+ - AgendamientoConsultorio/.git/objects/36/10ad5626cd816f96736d55df7de29cfc5eac5d
+ - AgendamientoConsultorio/.git/objects/37/8d7432992c65947626147529f4273d8b7c051b
+ - AgendamientoConsultorio/.git/objects/3a/6ddf366284f538daee7844d8ef00a68d670c46
+ - AgendamientoConsultorio/.git/objects/50/c1e651e804489363396742b273b33c57d9a94e
+ - AgendamientoConsultorio/.git/objects/53/710e79b116230f987807d19ce00ad3c6fc9989
+ - AgendamientoConsultorio/.git/objects/58/d161eb88dea40183d80c4a5a27b0ac3af40cbb
+ - AgendamientoConsultorio/.git/objects/62/63e07bf95268f906a10f57945a651bbc79d16a
+ - AgendamientoConsultorio/.git/objects/64/4b220e616a52c839557027617f2d855024d50a
+ - AgendamientoConsultorio/.git/objects/6a/ae1622ddf890a8372cd1b52d20db4b5c486b6c
+ - AgendamientoConsultorio/.git/objects/77/8fb331c8c11fd5b902b7ffd8238c56c645465f
+ - AgendamientoConsultorio/.git/objects/7b/46976178144f54c278168cb700c7cffa2483f3
+ - AgendamientoConsultorio/.git/objects/89/39c58fb3879c76a54e1c73c6952aded2c2068f
+ - AgendamientoConsultorio/.git/objects/89/e6045cf270035dec07cd70433eb6f7d93c3c4a
+ - AgendamientoConsultorio/.git/objects/8a/5db87e53f13d84f6dbf4a10ef20f68e8f8b9f5
+ - AgendamientoConsultorio/.git/objects/ac/3abcd20e7eb33492a96fbb40063d7bb542cd68
+ - AgendamientoConsultorio/.git/objects/b2/135c4a6ab00004d20209c68156d1f7580f4069
+ - AgendamientoConsultorio/.git/objects/b7/96ec8d70f03d2e67586e4a6a25b97dfd2c1598
+ - AgendamientoConsultorio/.git/objects/cc/0417d5942102d0eb424a9d69426119d772607c
+ - AgendamientoConsultorio/.git/objects/d1/c4b4231d00839e82cb1bb824090b8ac421b51b
+ - AgendamientoConsultorio/.git/objects/e4/2474e3c38e1b38d9b693eec44cc278af91e22c
+ - AgendamientoConsultorio/.git/refs/heads/master
+ - AgendamientoConsultorio/.git/refs/remotes/origin/master
+ - AgendamientoConsultorio/.gitignore
+ - AgendamientoConsultorio/Backab.sql
+ - AgendamientoConsultorio/Documentacion.md
+ - AgendamientoConsultorio/Readme.md
+ - AgendamientoConsultorio/admin/login.js
+ - AgendamientoConsultorio/admin/login.php
+ - AgendamientoConsultorio/admin/panel.js
+ - AgendamientoConsultorio/admin/panel.php
+ - AgendamientoConsultorio/backend/.env
+ - AgendamientoConsultorio/backend/admin.js
+ - AgendamientoConsultorio/backend/auth.js
+ - AgendamientoConsultorio/backend/db.js
+ - AgendamientoConsultorio/backend/middleware.js
+ - AgendamientoConsultorio/backend/node_modules/.bin/node-gyp-build
+ - AgendamientoConsultorio/backend/node_modules/.bin/node-gyp-build-optional
+ - AgendamientoConsultorio/backend/node_modules/.bin/node-gyp-build-optional.cmd
+ - AgendamientoConsultorio/backend/node_modules/.bin/node-gyp-build-optional.ps1
+ - AgendamientoConsultorio/backend/node_modules/.bin/node-gyp-build-test
+ - AgendamientoConsultorio/backend/node_modules/.bin/node-gyp-build-test.cmd
+ - AgendamientoConsultorio/backend/node_modules/.bin/node-gyp-build-test.ps1
+ - AgendamientoConsultorio/backend/node_modules/.bin/node-gyp-build.cmd
+ - AgendamientoConsultorio/backend/node_modules/.bin/node-gyp-build.ps1
+ - AgendamientoConsultorio/backend/node_modules/.bin/semver
+ - AgendamientoConsultorio/backend/node_modules/.bin/semver.cmd
+ - AgendamientoConsultorio/backend/node_modules/.bin/semver.ps1
+ - AgendamientoConsultorio/backend/node_modules/.package-lock.json
+ - AgendamientoConsultorio/backend/node_modules/accepts/HISTORY.md
+ - AgendamientoConsultorio/backend/node_modules/accepts/LICENSE
+ - AgendamientoConsultorio/backend/node_modules/accepts/README.md
+ - AgendamientoConsultorio/backend/node_modules/accepts/index.js
+ - AgendamientoConsultorio/backend/node_modules/accepts/package.json
+ - AgendamientoConsultorio/backend/node_modules/aws-ssl-profiles/LICENSE
+ - AgendamientoConsultorio/backend/node_modules/aws-ssl-profiles/README.md
+ - AgendamientoConsultorio/backend/node_modules/aws-ssl-profiles/lib/@types/profiles.d.ts
+ - AgendamientoConsultorio/backend/node_modules/aws-ssl-profiles/lib/@types/profiles.js
+ - AgendamientoConsultorio/backend/node_modules/aws-ssl-profiles/lib/index.d.ts
+ - AgendamientoConsultorio/backend/node_modules/aws-ssl-profiles/lib/index.js
+ - AgendamientoConsultorio/backend/node_modules/aws-ssl-profiles/lib/profiles/ca/defaults.d.ts
+ - AgendamientoConsultorio/backend/node_modules/aws-ssl-profiles/lib/profiles/ca/defaults.js
+ - AgendamientoConsultorio/backend/node_modules/aws-ssl-profiles/lib/profiles/ca/proxies.d.ts
+ - AgendamientoConsultorio/backend/node_modules/aws-ssl-profiles/lib/profiles/ca/proxies.js
+ - AgendamientoConsultorio/backend/node_modules/aws-ssl-profiles/package.json
+ - AgendamientoConsultorio/backend/node_modules/bcrypt/.dockerignore
+ - AgendamientoConsultorio/backend/node_modules/bcrypt/.editorconfig
+ - AgendamientoConsultorio/backend/node_modules/bcrypt/.github/workflows/build-pack-publish.yml
+ - AgendamientoConsultorio/backend/node_modules/bcrypt/.github/workflows/ci.yaml
+ - AgendamientoConsultorio/backend/node_modules/bcrypt/CHANGELOG.md
+ - AgendamientoConsultorio/backend/node_modules/bcrypt/Dockerfile
+ - AgendamientoConsultorio/backend/node_modules/bcrypt/Dockerfile-alpine
+ - AgendamientoConsultorio/backend/node_modules/bcrypt/ISSUE_TEMPLATE.md
+ - AgendamientoConsultorio/backend/node_modules/bcrypt/LICENSE
+ - AgendamientoConsultorio/backend/node_modules/bcrypt/Makefile
+ - AgendamientoConsultorio/backend/node_modules/bcrypt/README.md
+ - AgendamientoConsultorio/backend/node_modules/bcrypt/SECURITY.md
+ - AgendamientoConsultorio/backend/node_modules/bcrypt/bcrypt.js
+ - AgendamientoConsultorio/backend/node_modules/bcrypt/binding.gyp
+ - AgendamientoConsultorio/backend/node_modules/bcrypt/build-all.sh
+ - AgendamientoConsultorio/backend/node_modules/bcrypt/examples/async_compare.js
+ - AgendamientoConsultorio/backend/node_modules/bcrypt/examples/forever_gen_salt.js
+ - AgendamientoConsultorio/backend/node_modules/bcrypt/package.json
+ - AgendamientoConsultorio/backend/node_modules/bcrypt/prebuilds/darwin-arm64/bcrypt.node
+ - AgendamientoConsultorio/backend/node_modules/bcrypt/prebuilds/darwin-x64/bcrypt.node
+ - AgendamientoConsultorio/backend/node_modules/bcrypt/prebuilds/linux-arm/bcrypt.glibc.node
+ - AgendamientoConsultorio/backend/node_modules/bcrypt/prebuilds/linux-arm/bcrypt.musl.node
+ - AgendamientoConsultorio/backend/node_modules/bcrypt/prebuilds/linux-arm64/bcrypt.glibc.node
+ - AgendamientoConsultorio/backend/node_modules/bcrypt/prebuilds/linux-arm64/bcrypt.musl.node
+ - AgendamientoConsultorio/backend/node_modules/bcrypt/prebuilds/linux-x64/bcrypt.glibc.node
+ - AgendamientoConsultorio/backend/node_modules/bcrypt/prebuilds/linux-x64/bcrypt.musl.node
+ - AgendamientoConsultorio/backend/node_modules/bcrypt/prebuilds/win32-arm64/bcrypt.node
+ - AgendamientoConsultorio/backend/node_modules/bcrypt/prebuilds/win32-x64/bcrypt.node
+ - AgendamientoConsultorio/backend/node_modules/bcrypt/promises.js
+ - AgendamientoConsultorio/backend/node_modules/bcrypt/src/bcrypt.cc
+ - AgendamientoConsultorio/backend/node_modules/bcrypt/src/bcrypt_node.cc
+ - AgendamientoConsultorio/backend/node_modules/bcrypt/src/blowfish.cc
+ - AgendamientoConsultorio/backend/node_modules/bcrypt/src/node_blf.h
+ - AgendamientoConsultorio/backend/node_modules/bcrypt/test/async.test.js
+ - AgendamientoConsultorio/backend/node_modules/bcrypt/test/implementation.test.js
+ - AgendamientoConsultorio/backend/node_modules/bcrypt/test/promise.test.js
+ - AgendamientoConsultorio/backend/node_modules/bcrypt/test/repetitions.test.js
+ - AgendamientoConsultorio/backend/node_modules/bcrypt/test/sync.test.js
+ - AgendamientoConsultorio/backend/node_modules/body-parser/HISTORY.md
+ - AgendamientoConsultorio/backend/node_modules/body-parser/LICENSE
+ - AgendamientoConsultorio/backend/node_modules/body-parser/README.md
+ - AgendamientoConsultorio/backend/node_modules/body-parser/index.js
+ - AgendamientoConsultorio/backend/node_modules/body-parser/lib/read.js
+ - AgendamientoConsultorio/backend/node_modules/body-parser/lib/types/json.js
+ - AgendamientoConsultorio/backend/node_modules/body-parser/lib/types/raw.js
+ - AgendamientoConsultorio/backend/node_modules/body-parser/lib/types/text.js
+ - AgendamientoConsultorio/backend/node_modules/body-parser/lib/types/urlencoded.js
+ - AgendamientoConsultorio/backend/node_modules/body-parser/lib/utils.js
+ - AgendamientoConsultorio/backend/node_modules/body-parser/package.json
+ - AgendamientoConsultorio/backend/node_modules/buffer-equal-constant-time/.npmignore
+ - AgendamientoConsultorio/backend/node_modules/buffer-equal-constant-time/.travis.yml
+ - AgendamientoConsultorio/backend/node_modules/buffer-equal-constant-time/LICENSE.txt
+ - AgendamientoConsultorio/backend/node_modules/buffer-equal-constant-time/README.md
+ - AgendamientoConsultorio/backend/node_modules/buffer-equal-constant-time/index.js
+ - AgendamientoConsultorio/backend/node_modules/buffer-equal-constant-time/package.json
+ - AgendamientoConsultorio/backend/node_modules/buffer-equal-constant-time/test.js
+ - AgendamientoConsultorio/backend/node_modules/bytes/History.md
+ - AgendamientoConsultorio/backend/node_modules/bytes/LICENSE
+ - AgendamientoConsultorio/backend/node_modules/bytes/Readme.md
+ - AgendamientoConsultorio/backend/node_modules/bytes/index.js
+ - AgendamientoConsultorio/backend/node_modules/bytes/package.json
+ - AgendamientoConsultorio/backend/node_modules/call-bind-apply-helpers/.eslintrc
+ - AgendamientoConsultorio/backend/node_modules/call-bind-apply-helpers/.github/FUNDING.yml
+ - AgendamientoConsultorio/backend/node_modules/call-bind-apply-helpers/.nycrc
+ - AgendamientoConsultorio/backend/node_modules/call-bind-apply-helpers/CHANGELOG.md
+ - AgendamientoConsultorio/backend/node_modules/call-bind-apply-helpers/LICENSE
+ - AgendamientoConsultorio/backend/node_modules/call-bind-apply-helpers/README.md
+ - AgendamientoConsultorio/backend/node_modules/call-bind-apply-helpers/actualApply.d.ts
+ - AgendamientoConsultorio/backend/node_modules/call-bind-apply-helpers/actualApply.js
+ - AgendamientoConsultorio/backend/node_modules/call-bind-apply-helpers/applyBind.d.ts
+ - AgendamientoConsultorio/backend/node_modules/call-bind-apply-helpers/applyBind.js
+ - AgendamientoConsultorio/backend/node_modules/call-bind-apply-helpers/functionApply.d.ts
+ - AgendamientoConsultorio/backend/node_modules/call-bind-apply-helpers/functionApply.js
+ - AgendamientoConsultorio/backend/node_modules/call-bind-apply-helpers/functionCall.d.ts
+ - AgendamientoConsultorio/backend/node_modules/call-bind-apply-helpers/functionCall.js
+ - AgendamientoConsultorio/backend/node_modules/call-bind-apply-helpers/index.d.ts
+ - AgendamientoConsultorio/backend/node_modules/call-bind-apply-helpers/index.js
+ - AgendamientoConsultorio/backend/node_modules/call-bind-apply-helpers/package.json
+ - AgendamientoConsultorio/backend/node_modules/call-bind-apply-helpers/reflectApply.d.ts
+ - AgendamientoConsultorio/backend/node_modules/call-bind-apply-helpers/reflectApply.js
+ - AgendamientoConsultorio/backend/node_modules/call-bind-apply-helpers/test/index.js
+ - AgendamientoConsultorio/backend/node_modules/call-bind-apply-helpers/tsconfig.json
+ - AgendamientoConsultorio/backend/node_modules/call-bound/.eslintrc
+ - AgendamientoConsultorio/backend/node_modules/call-bound/.github/FUNDING.yml
+ - AgendamientoConsultorio/backend/node_modules/call-bound/.nycrc
+ - AgendamientoConsultorio/backend/node_modules/call-bound/CHANGELOG.md
+ - AgendamientoConsultorio/backend/node_modules/call-bound/LICENSE
+ - AgendamientoConsultorio/backend/node_modules/call-bound/README.md
+ - AgendamientoConsultorio/backend/node_modules/call-bound/index.d.ts
+ - AgendamientoConsultorio/backend/node_modules/call-bound/index.js
+ - AgendamientoConsultorio/backend/node_modules/call-bound/package.json
+ - AgendamientoConsultorio/backend/node_modules/call-bound/test/index.js
+ - AgendamientoConsultorio/backend/node_modules/call-bound/tsconfig.json
+ - AgendamientoConsultorio/backend/node_modules/content-disposition/HISTORY.md
+ - AgendamientoConsultorio/backend/node_modules/content-disposition/LICENSE
+ - AgendamientoConsultorio/backend/node_modules/content-disposition/README.md
+ - AgendamientoConsultorio/backend/node_modules/content-disposition/index.js
+ - AgendamientoConsultorio/backend/node_modules/content-disposition/package.json
+ - AgendamientoConsultorio/backend/node_modules/content-type/HISTORY.md
+ - AgendamientoConsultorio/backend/node_modules/content-type/LICENSE
+ - AgendamientoConsultorio/backend/node_modules/content-type/README.md
+ - AgendamientoConsultorio/backend/node_modules/content-type/index.js
+ - AgendamientoConsultorio/backend/node_modules/content-type/package.json
+ - AgendamientoConsultorio/backend/node_modules/cookie-signature/History.md
+ - AgendamientoConsultorio/backend/node_modules/cookie-signature/LICENSE
+ - AgendamientoConsultorio/backend/node_modules/cookie-signature/Readme.md
+ - AgendamientoConsultorio/backend/node_modules/cookie-signature/index.js
+ - AgendamientoConsultorio/backend/node_modules/cookie-signature/package.json
+ - AgendamientoConsultorio/backend/node_modules/cookie/LICENSE
+ - AgendamientoConsultorio/backend/node_modules/cookie/README.md
+ - AgendamientoConsultorio/backend/node_modules/cookie/SECURITY.md
+ - AgendamientoConsultorio/backend/node_modules/cookie/index.js
+
+Issues detectados:
+
+ * package.json faltante: No se encontró package.json en la raíz del proyecto. Esto impide instalar dependencias y ejecutar la app.
+
+ * Archivos .env detectados: Se encontraron archivos .env: AgendamientoConsultorio/backend/.env. Asegúrese de no subir credenciales a repositorios públicos.
+
+ * bcrypt detectado: Se detectaron referencias a bcrypt/bcryptjs en: AgendamientoConsultorio/backend/auth.js, AgendamientoConsultorio/backend/node_modules/bcrypt/promises.js, AgendamientoConsultorio/backend/node_modules/bcrypt/examples/async_compare.js, AgendamientoConsultorio/backend/node_modules/bcrypt/examples/forever_gen_salt.js, AgendamientoConsultorio/backend/node_modules/bcrypt/test/async.test.js, AgendamientoConsultorio/backend/node_modules/bcrypt/test/implementation.test.js, AgendamientoConsultorio/backend/node_modules/bcrypt/test/promise.test.js, AgendamientoConsultorio/backend/node_modules/bcrypt/test/repetitions.test.js, AgendamientoConsultorio/backend/node_modules/bcrypt/test/sync.test.js. Verificar uso correcto de salt rounds y funciones asíncronas.
+
+ * Conexiones a base de datos encontradas: Archivos con posible conexión a DB: AgendamientoConsultorio/script.js, AgendamientoConsultorio/backend/server.js, AgendamientoConsultorio/backend/db.js, AgendamientoConsultorio/backend/node_modules/aws-ssl-profiles/lib/profiles/ca/defaults.js, AgendamientoConsultorio/backend/node_modules/aws-ssl-profiles/lib/profiles/ca/proxies.js, AgendamientoConsultorio/backend/node_modules/express/lib/response.js, AgendamientoConsultorio/backend/node_modules/iconv-lite/encodings/sbcs-data.js, AgendamientoConsultorio/backend/node_modules/mysql2/index.d.ts, AgendamientoConsultorio/backend/node_modules/mysql2/index.js, AgendamientoConsultorio/backend/node_modules/mysql2/promise.d.ts, AgendamientoConsultorio/backend/node_modules/mysql2/promise.js, AgendamientoConsultorio/backend/node_modules/mysql2/lib/auth_41.js, AgendamientoConsultorio/backend/node_modules/mysql2/lib/compressed_protocol.js, AgendamientoConsultorio/backend/node_modules/mysql2/lib/connection_config.js, AgendamientoConsultorio/backend/node_modules/mysql2/lib/create_connection.js, AgendamientoConsultorio/backend/node_modules/mysql2/lib/create_pool.js, AgendamientoConsultorio/backend/node_modules/mysql2/lib/create_pool_cluster.js, AgendamientoConsultorio/backend/node_modules/mysql2/lib/helpers.js, AgendamientoConsultorio/backend/node_modules/mysql2/lib/results_stream.js, AgendamientoConsultorio/backend/node_modules/mysql2/lib/auth_plugins/caching_sha2_password.js, AgendamientoConsultorio/backend/node_modules/mysql2/lib/auth_plugins/index.js, AgendamientoConsultorio/backend/node_modules/mysql2/lib/auth_plugins/mysql_clear_password.js, AgendamientoConsultorio/backend/node_modules/mysql2/lib/auth_plugins/mysql_native_password.js, AgendamientoConsultorio/backend/node_modules/mysql2/lib/base/connection.js, AgendamientoConsultorio/backend/node_modules/mysql2/lib/commands/auth_switch.js, AgendamientoConsultorio/backend/node_modules/mysql2/lib/commands/change_user.js, AgendamientoConsultorio/backend/node_modules/mysql2/lib/commands/client_handshake.js, AgendamientoConsultorio/backend/node_modules/mysql2/lib/commands/execute.js, AgendamientoConsultorio/backend/node_modules/mysql2/lib/commands/prepare.js, AgendamientoConsultorio/backend/node_modules/mysql2/lib/commands/query.js, AgendamientoConsultorio/backend/node_modules/mysql2/lib/commands/server_handshake.js, AgendamientoConsultorio/backend/node_modules/mysql2/lib/constants/charsets.js, AgendamientoConsultorio/backend/node_modules/mysql2/lib/constants/client.js, AgendamientoConsultorio/backend/node_modules/mysql2/lib/constants/commands.js, AgendamientoConsultorio/backend/node_modules/mysql2/lib/constants/encoding_charset.js, AgendamientoConsultorio/backend/node_modules/mysql2/lib/constants/errors.js, AgendamientoConsultorio/backend/node_modules/mysql2/lib/constants/field_flags.js, AgendamientoConsultorio/backend/node_modules/mysql2/lib/constants/server_status.js, AgendamientoConsultorio/backend/node_modules/mysql2/lib/constants/ssl_profiles.js, AgendamientoConsultorio/backend/node_modules/mysql2/lib/constants/types.js, AgendamientoConsultorio/backend/node_modules/mysql2/lib/packets/auth_switch_request.js, AgendamientoConsultorio/backend/node_modules/mysql2/lib/packets/auth_switch_request_more_data.js, AgendamientoConsultorio/backend/node_modules/mysql2/lib/packets/auth_switch_response.js, AgendamientoConsultorio/backend/node_modules/mysql2/lib/packets/binary_row.js, AgendamientoConsultorio/backend/node_modules/mysql2/lib/packets/binlog_dump.js, AgendamientoConsultorio/backend/node_modules/mysql2/lib/packets/binlog_query_statusvars.js, AgendamientoConsultorio/backend/node_modules/mysql2/lib/packets/change_user.js, AgendamientoConsultorio/backend/node_modules/mysql2/lib/packets/column_definition.js, AgendamientoConsultorio/backend/node_modules/mysql2/lib/packets/handshake.js, AgendamientoConsultorio/backend/node_modules/mysql2/lib/packets/handshake_response.js, AgendamientoConsultorio/backend/node_modules/mysql2/lib/packets/index.js, AgendamientoConsultorio/backend/node_modules/mysql2/lib/packets/packet.js, AgendamientoConsultorio/backend/node_modules/mysql2/lib/packets/register_slave.js, AgendamientoConsultorio/backend/node_modules/mysql2/lib/packets/resultset_header.js, AgendamientoConsultorio/backend/node_modules/mysql2/lib/parsers/binary_parser.js, AgendamientoConsultorio/backend/node_modules/mysql2/lib/parsers/static_binary_parser.js, AgendamientoConsultorio/backend/node_modules/mysql2/lib/parsers/static_text_parser.js, AgendamientoConsultorio/backend/node_modules/mysql2/lib/parsers/text_parser.js, AgendamientoConsultorio/backend/node_modules/mysql2/node_modules/iconv-lite/encodings/sbcs-data.js, AgendamientoConsultorio/backend/node_modules/mysql2/typings/mysql/index.d.ts, AgendamientoConsultorio/backend/node_modules/mysql2/typings/mysql/lib/Auth.d.ts, AgendamientoConsultorio/backend/node_modules/mysql2/typings/mysql/lib/Connection.d.ts, AgendamientoConsultorio/backend/node_modules/mysql2/typings/mysql/lib/constants/Charsets.d.ts, AgendamientoConsultorio/backend/node_modules/mysql2/typings/mysql/lib/constants/CharsetToEncoding.d.ts, AgendamientoConsultorio/backend/node_modules/mysql2/typings/mysql/lib/constants/Types.d.ts, AgendamientoConsultorio/backend/node_modules/mysql2/typings/mysql/lib/protocol/sequences/Query.d.ts, AgendamientoConsultorio/backend/node_modules/nodemailer/.ncurc.js, AgendamientoConsultorio/backend/node_modules/nodemailer/lib/fetch/index.js, AgendamientoConsultorio/backend/node_modules/nodemailer/lib/mailer/index.js, AgendamientoConsultorio/backend/node_modules/nodemailer/lib/mime-funcs/mime-types.js, AgendamientoConsultorio/backend/node_modules/nodemailer/lib/shared/index.js, AgendamientoConsultorio/backend/node_modules/nodemailer/lib/smtp-connection/http-proxy-client.js, AgendamientoConsultorio/backend/node_modules/nodemailer/lib/smtp-connection/index.js, AgendamientoConsultorio/backend/node_modules/nodemailer/lib/smtp-pool/index.js, AgendamientoConsultorio/backend/node_modules/nodemailer/lib/smtp-pool/pool-resource.js, AgendamientoConsultorio/backend/node_modules/nodemailer/lib/smtp-transport/index.js, AgendamientoConsultorio/backend/node_modules/nodemailer/lib/xoauth2/index.js, AgendamientoConsultorio/backend/node_modules/on-finished/index.js, AgendamientoConsultorio/backend/node_modules/qs/dist/qs.js, AgendamientoConsultorio/backend/node_modules/qs/test/parse.js, AgendamientoConsultorio/backend/node_modules/raw-body/node_modules/iconv-lite/encodings/sbcs-data.js, AgendamientoConsultorio/backend/node_modules/side-channel-map/index.js, AgendamientoConsultorio/backend/node_modules/side-channel-weakmap/index.js, AgendamientoConsultorio/backend/node_modules/bcrypt/test/implementation.test.js, AgendamientoConsultorio/admin/login.js, AgendamientoConsultorio/admin/panel.js. Verifique que credenciales no estén hardcodeadas y que use pool y manejo de errores.
+
+ * Archivo servidor detectado: Potencial archivo servidor: AgendamientoConsultorio/backend/server.js. Revisa que tenga manejo de errores y configuración de puerto por environment.
+
+ * Archivo servidor detectado: Potencial archivo servidor: AgendamientoConsultorio/backend/node_modules/express/lib/application.js. Revisa que tenga manejo de errores y configuración de puerto por environment.
+
+
+Archivos previos para inspección:
+
+--- AgendamientoConsultorio/backend/server.js ---
+
+const express = require('express');
+const mysql = require('mysql2');
+const cors = require('cors');
+const nodemailer = require('nodemailer');
+require('dotenv').config();
+
+const app = express();
+const PORT = 3000;
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+
+// Conexión a MySQL (no modificada, pero se usará en db.js para las rutas de admin)
+const db = mysql.createConnection({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME
+});
+
+db.connect((err) => {
+  if (err) {
+    console.error('Error conectando a MySQL:', err);
+    return;
+  }
+  console.log('Conectado a MySQL');
+});
+
+// Configuración de Nodemailer (sin cambios)
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS
+  }
+});
+
+// Ruta para guardar cita (uniformicé respuestas JSON)
+app.post('/api/appointments', (req, res) => {
+  const { email, nombre_completo, telefono, age, reason, date, time, price } = req.body;
+
+  // Validaciones
+  if (!email || !nombre_completo || !telefono || !age || !reason || !date || !time || !price) {
+    return res.status(400).json({ status: 'error', message: 'Todos los campos son obligatorios' });
+  }
+  if (age < 18) {
+    return res.status(400).json({ status: 'error', message: 'Debes tener al menos 18 años' });
+  }
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    return res.status(400).json({ status: 'error', message: 'Correo electrónico inválido' });
+  }
+  if (nombre_completo.trim().length === 0) {
+    return res.status(400).json({ status: 'error', message: 'Nombre completo es obligatorio' });
+  }
+  const telefonoRegex = /^(\+595|0)?\s?9\d{2}\s?\d{3}\s?\d{3}$/;  // Regex específico para Paraguay
+  if (!telefonoRegex.test(telefono)) {
+    return res.status(400).json({ status: 'error', message: 'Teléfono inválido (ejemplo: +595 981 123 456 o 0981 123 456)' });
+  }
+
+  // Ins
+
+
+--- AgendamientoConsultorio/backend/auth.js ---
+
+// auth.js (corregido)
+const express = require('express');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const db = require('./db');
+require('dotenv').config();
+
+const router = express.Router();
+
+/**
+ * POST /api/auth/login
+ * Autentica al administrador.
+ * Body: { usuario: string, contraseña: string }
+ * Respuesta: { status, message, data: { token } } o error.
+ */
+router.post('/login', async (req, res) => {
+    const { usuario, contraseña } = req.body;
+
+    if (!usuario || !contraseña) {
+        return res.status(400).json({ status: 'error', message: 'Usuario y contraseña son requeridos.' });
+    }
+
+    try {
+        // Ejecutar consulta y extraer rows de manera segura
+        const result = await db.execute('SELECT * FROM admin WHERE usuario = ?', [usuario]);
+        const rows = result[0] || [];  // result[0] es rows, o array vacío si falla
+
+        console.log('Resultado de consulta:', rows);  // Para depurar
+
+        if (rows.length === 0) {
+            return res.status(401).json({ status: 'error', message: 'Credenciales inválidas.' });
+        }
+
+        const admin = rows[0];
+
+        // Verificar contraseña con bcrypt
+        const isValidPassword = await bcrypt.compare(contraseña, admin.contraseña);
+        if (!isValidPassword) {
+            return res.status(401).json({ status: 'error', message: 'Credenciales inválidas.' });
+        }
+
+        // Generar JWT
+        const token = jwt.sign({ id: admin.id, usuario: admin.usuario }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+        res.json({ status: 'success', message: 'Login exitoso.', data: { token } });
+    } catch (error) {
+        console.error('Error en login:', error);
+        res.status(500).json({ status: 'error', message: 'Error interno del servidor.' });
+    }
+});
+
+module.exports = router;
+
+
+--- AgendamientoConsultorio/backend/db.js ---
+
+// db.js
+const mysql = require('mysql2');
+require('dotenv').config();
+
+// Configuración de la conexión MySQL (copiada de server.js para reutilización)
+const db = mysql.createConnection({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME
+});
+
+// Conectar a la BD
+db.connect((err) => {
+  if (err) {
+    console.error('Error conectando a MySQL:', err);
+    process.exit(1);
+  } else {
+    console.log('Conectado a MySQL desde db.js');
+  }
+});
+
+module.exports = db;
+
+
+--- AgendamientoConsultorio/backend/node_modules/accepts/index.js ---
+
+/*!
+ * accepts
+ * Copyright(c) 2014 Jonathan Ong
+ * Copyright(c) 2015 Douglas Christopher Wilson
+ * MIT Licensed
+ */
+
+'use strict'
+
+/**
+ * Module dependencies.
+ * @private
+ */
+
+var Negotiator = require('negotiator')
+var mime = require('mime-types')
+
+/**
+ * Module exports.
+ * @public
+ */
+
+module.exports = Accepts
+
+/**
+ * Create a new Accepts object for the given req.
+ *
+ * @param {object} req
+ * @public
+ */
+
+function Accepts (req) {
+  if (!(this instanceof Accepts)) {
+    return new Accepts(req)
+  }
+
+  this.headers = req.headers
+  this.negotiator = new Negotiator(req)
+}
+
+/**
+ * Check if the given `type(s)` is acceptable, returning
+ * the best match when true, otherwise `undefined`, in which
+ * case you should respond with 406 "Not Acceptable".
+ *
+ * The `type` value may be a single mime type string
+ * such as "application/json", the extension name
+ * such as "json" or an array `["json", "html", "text/plain"]`. When a list
+ * or array is given the _best_ match, if any is returned.
+ *
+ * Examples:
+ *
+ *     // Accept: text/html
+ *     this.types('html');
+ *     // => "html"
+ *
+ *     // Accept: text/*, application/json
+ *     this.types('html');
+ *     // => "html"
+ *     this.types('text/html');
+ *     // => "text/html"
+ *     this.types('json', 'text');
+ *     // => "json"
+ *     this.types('application/json');
+ *     // => "application/json"
+ *
+ *     // Accept: text/*, application/json
+ *     this.types('image/png');
+ *     this.types('png');
+ *     // => undefined
+ *
+ *     // Accept: text/*;q=.5, application/json
+ *     this.types(['html', 'json']);
+ *     this.types('html', 'json');
+ *     // => "json"
+ *
+ * @param {String|Array} types...
+ * @return {String|Array|Boolean}
+ * @public
+ */
+
+Accepts.prototype.type =
+Accepts.prototype.types = function (types_) {
+  var types = types_
+
+  // support flattened arguments
+  if (types && !Array.isArray(types)) {
+    types = new Array(arguments.length)
+    for (var i = 0; i < types.length; i++) {
+      types[i] = arguments[i
+
+
+--- AgendamientoConsultorio/backend/node_modules/aws-ssl-profiles/lib/index.d.ts ---
+
+import type { Profiles } from "./@types/profiles.js";
+export declare const proxyBundle: Profiles;
+declare const profiles: Profiles;
+declare module "aws-ssl-profiles" {
+    const profiles: Profiles & { proxyBundle: Profiles };
+    export = profiles;
+}
+export default profiles;
+
+
+
+--- AgendamientoConsultorio/backend/node_modules/aws-ssl-profiles/lib/index.js ---
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const defaults_js_1 = require("./profiles/ca/defaults.js");
+const proxies_js_1 = require("./profiles/ca/proxies.js");
+const proxyBundle = {
+    ca: proxies_js_1.proxies,
+};
+const profiles = {
+    ca: [...defaults_js_1.defaults, ...proxies_js_1.proxies],
+};
+module.exports = profiles;
+module.exports.proxyBundle = proxyBundle;
+module.exports.default = profiles;
+
+
+
+--- AgendamientoConsultorio/backend/node_modules/body-parser/index.js ---
+
+/*!
+ * body-parser
+ * Copyright(c) 2014-2015 Douglas Christopher Wilson
+ * MIT Licensed
+ */
+
+'use strict'
+
+/**
+ * @typedef Parsers
+ * @type {function}
+ * @property {function} json
+ * @property {function} raw
+ * @property {function} text
+ * @property {function} urlencoded
+ */
+
+/**
+ * Module exports.
+ * @type {Parsers}
+ */
+
+exports = module.exports = bodyParser
+
+/**
+ * JSON parser.
+ * @public
+ */
+
+Object.defineProperty(exports, 'json', {
+  configurable: true,
+  enumerable: true,
+  get: () => require('./lib/types/json')
+})
+
+/**
+ * Raw parser.
+ * @public
+ */
+
+Object.defineProperty(exports, 'raw', {
+  configurable: true,
+  enumerable: true,
+  get: () => require('./lib/types/raw')
+})
+
+/**
+ * Text parser.
+ * @public
+ */
+
+Object.defineProperty(exports, 'text', {
+  configurable: true,
+  enumerable: true,
+  get: () => require('./lib/types/text')
+})
+
+/**
+ * URL-encoded parser.
+ * @public
+ */
+
+Object.defineProperty(exports, 'urlencoded', {
+  configurable: true,
+  enumerable: true,
+  get: () => require('./lib/types/urlencoded')
+})
+
+/**
+ * Create a middleware to parse json and urlencoded bodies.
+ *
+ * @param {object} [options]
+ * @return {function}
+ * @deprecated
+ * @public
+ */
+
+function bodyParser () {
+  throw new Error('The bodyParser() generic has been split into individual middleware to use instead.')
+}
+
+
+
+--- AgendamientoConsultorio/backend/node_modules/bytes/index.js ---
+
+/*!
+ * bytes
+ * Copyright(c) 2012-2014 TJ Holowaychuk
+ * Copyright(c) 2015 Jed Watson
+ * MIT Licensed
+ */
+
+'use strict';
+
+/**
+ * Module exports.
+ * @public
+ */
+
+module.exports = bytes;
+module.exports.format = format;
+module.exports.parse = parse;
+
+/**
+ * Module variables.
+ * @private
+ */
+
+var formatThousandsRegExp = /\B(?=(\d{3})+(?!\d))/g;
+
+var formatDecimalsRegExp = /(?:\.0*|(\.[^0]+)0+)$/;
+
+var map = {
+  b:  1,
+  kb: 1 << 10,
+  mb: 1 << 20,
+  gb: 1 << 30,
+  tb: Math.pow(1024, 4),
+  pb: Math.pow(1024, 5),
+};
+
+var parseRegExp = /^((-|\+)?(\d+(?:\.\d+)?)) *(kb|mb|gb|tb|pb)$/i;
+
+/**
+ * Convert the given value in bytes into a string or parse to string to an integer in bytes.
+ *
+ * @param {string|number} value
+ * @param {{
+ *  case: [string],
+ *  decimalPlaces: [number]
+ *  fixedDecimals: [boolean]
+ *  thousandsSeparator: [string]
+ *  unitSeparator: [string]
+ *  }} [options] bytes options.
+ *
+ * @returns {string|number|null}
+ */
+
+function bytes(value, options) {
+  if (typeof value === 'string') {
+    return parse(value);
+  }
+
+  if (typeof value === 'number') {
+    return format(value, options);
+  }
+
+  return null;
+}
+
+/**
+ * Format the given value in bytes into a string.
+ *
+ * If the value is negative, it is kept as such. If it is a float,
+ * it is rounded.
+ *
+ * @param {number} value
+ * @param {object} [options]
+ * @param {number} [options.decimalPlaces=2]
+ * @param {number} [options.fixedDecimals=false]
+ * @param {string} [options.thousandsSeparator=]
+ * @param {string} [options.unit=]
+ * @param {string} [options.unitSeparator=]
+ *
+ * @returns {string|null}
+ * @public
+ */
+
+function format(value, options) {
+  if (!Number.isFinite(value)) {
+    return null;
+  }
+
+  var mag = Math.abs(value);
+  var thousandsSeparator = (options && options.thousandsSeparator) || '';
+  var unitSeparator = (options && options.unitSeparator) || '';
+  var decimalPlaces = (options && options.decimalPlaces !== undefined) ? options.decimalPlaces : 2;
+  var fixedDecimals = Boolean(options && optio
+
+
+--- AgendamientoConsultorio/backend/node_modules/call-bind-apply-helpers/actualApply.d.ts ---
+
+export = Reflect.apply;
+
+
+--- AgendamientoConsultorio/backend/node_modules/call-bind-apply-helpers/actualApply.js ---
+
+'use strict';
+
+var bind = require('function-bind');
+
+var $apply = require('./functionApply');
+var $call = require('./functionCall');
+var $reflectApply = require('./reflectApply');
+
+/** @type {import('./actualApply')} */
+module.exports = $reflectApply || bind.call($call, $apply);
+
+
