@@ -1,6 +1,7 @@
 const path = require('path');
 const qrcode = require('qrcode-terminal');
 const { Client, LocalAuth } = require('whatsapp-web.js');
+const puppeteer = require('puppeteer');
 require('dotenv').config();
 
 let client = null;
@@ -13,13 +14,17 @@ function loadClient() {
     return;
   }
 
+  const executablePath = process.env.PUPPETEER_EXECUTABLE_PATH || puppeteer.executablePath();
+
   client = new Client({
     authStrategy: new LocalAuth({
       dataPath: path.join(__dirname, '..', '.wapp_sessions')
     }),
     puppeteer: {
       headless: true,
-      args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
+      executablePath,
+      args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
+      timeout: Number(process.env.WHATSAPP_LAUNCH_TIMEOUT_MS || 60000)
     }
   });
 
@@ -52,6 +57,8 @@ function loadClient() {
     whatsappReady = false;
     whatsappEnabled = false;
     console.error('❌ Error al inicializar WhatsApp:', err.message);
+    console.error('ℹ️ Verifica que Chromium/Chrome esté instalado y accesible en:', executablePath);
+    console.error('ℹ️ Si estás en Docker, asegúrate de rebuildear la imagen para instalar chromium.');
   });
 }
 

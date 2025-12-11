@@ -26,9 +26,9 @@ Aplicación completa para gestionar citas de un consultorio psicológico. Incluy
    cd ..
    ```
    Variables clave:
-   - `ENABLE_WHATSAPP` (`false` por defecto) evita lanzar Chromium en desarrollo.
-   - `ENABLE_EMAIL` (`true` por defecto) usa nodemailer; en `false` solo registra en consola.
-   - `DB_*` ya apunta al contenedor `db` que levanta `docker-compose.yml`.
+- `ENABLE_WHATSAPP` (`false` por defecto) evita lanzar Chromium en desarrollo.
+- `ENABLE_EMAIL` (`true` por defecto) usa nodemailer; en `false` solo registra en consola.
+- `DB_*` ya apunta al contenedor `db` que levanta `docker-compose.yml`.
 3. Levanta los servicios (desde la raíz del repo):
    ```bash
    docker compose up -d db backend frontend
@@ -91,6 +91,11 @@ Aplicación completa para gestionar citas de un consultorio psicológico. Incluy
 - **¿Necesito XAMPP para usar MySQL?** No. Con `docker compose up` ya se levanta MySQL dentro del contenedor `db`; XAMPP no es necesario y puede quedarse apagado. Solo usa MySQL de XAMPP si decides ejecutar el backend sin Docker y apuntas `DB_HOST/DB_PORT` a esa instancia.
 - **Apache de XAMPP muestra "Port 80 in use"**: el contenedor `frontend` usa el puerto 80 por defecto. Para liberar el puerto, detén los contenedores con `docker compose down`. Si necesitas correr ambos, cambia el puerto de Apache en el panel de XAMPP (p.ej. 8081) o edita `docker-compose.yml` para mapear `frontend` a otro puerto externo (p.ej. `8080:80`).
 - **Conflicto con el puerto de MySQL**: el contenedor expone MySQL en el puerto 3307 del host. Si tienes MySQL local en 3306 (como el de XAMPP), no debería haber choque. Si cambias el puerto de XAMPP o quieres usarlo, ajusta `DB_PORT` en `Backend/.env` para que coincida.
+- **¿Cómo habilito WhatsApp sin errores de Chrome?**
+  1. Asegúrate de tener Chromium/Chrome instalado. En Docker ya se instala Chromium en la imagen del backend y se usa la ruta `/usr/bin/chromium-browser` (controlada por `PUPPETEER_EXECUTABLE_PATH`).
+  2. En `Backend/.env` pon `ENABLE_WHATSAPP=true`. Opcionalmente ajusta `WHATSAPP_LAUNCH_TIMEOUT_MS` si tu hardware es lento.
+  3. Arranca el backend (`docker compose up -d backend` o `npm start`). En logs de `backend` aparecerá un QR: escanéalo desde WhatsApp > Dispositivos vinculados.
+  4. Si ves el mensaje “Timed out while trying to connect to the browser”, reconstruye la imagen para reinstalar Chromium: `docker compose build backend && docker compose up -d backend`. Si corres sin Docker, instala Chromium/Chrome y apunta `PUPPETEER_EXECUTABLE_PATH` a su ejecutable.
 
 ## 🔍 Comandos útiles
 - Detener servicios Docker: `docker compose down`
