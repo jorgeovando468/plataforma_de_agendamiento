@@ -51,25 +51,9 @@ CREATE TABLE IF NOT EXISTS `appointments` (
   KEY `idx_email` (`email`),
   KEY `idx_date` (`date`),
   KEY `idx_nombre_completo` (`nombre_completo`),
-  KEY `idx_telefono` (`telefono`)
+  KEY `idx_telefono` (`telefono`),
+  UNIQUE KEY `uniq_date_time` (`date`,`time`)
 ) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- Volcando datos para la tabla consultorio_psicologico.appointments: ~12 rows (aproximadamente)
-/*!40000 ALTER TABLE `appointments` DISABLE KEYS */;
-INSERT INTO `appointments` (`id`, `email`, `nombre_completo`, `telefono`, `age`, `reason`, `estado`, `date`, `time`, `price`, `created_at`) VALUES
-	(10, 'jemprendetumismo@gmail.com', 'jorge ovando', '0976578699', 29, 'ashkjashd', 'confirmada', '2025-11-06', '10:30:00', '$45.000', '2025-10-30 14:24:23'),
-	(11, 'alitorresvilla@hotmail.com', 'Alicia Villasanti', '0976119360', 29, 'Evaluacion Psicologica', 'confirmada', '2025-10-31', '16:30:00', '$55.000', '2025-10-30 14:27:58'),
-	(12, 'nilda2970@gmail.com', 'Alan Cosa', '0976578699', 18, 'sgsdfgs', 'confirmada', '2025-10-31', '12:00:00', '$50.000', '2025-10-30 18:09:09'),
-	(13, 'jorgeovando468@gmail.com', 'Alicia Villasanti', '0976578699', 29, 'jaskljdajlasd', 'confirmada', '2025-11-21', '10:30:00', '$45.000', '2025-11-10 13:39:11'),
-	(14, 'jemprendetumismo@gmail.com', 'jorge ovando', '0976119360', 18, 'es otra cita', 'confirmada', '2025-11-20', '09:00:00', '$45.000', '2025-11-10 13:40:18'),
-	(15, 'jemprendetumismo@gmail.com', 'jorge ovando', '0976578699', 20, 'otra cita nueva', 'confirmada', '2025-11-21', '09:00:00', '$45.000', '2025-11-10 13:41:17'),
-	(16, 'jemprendetumismo@gmail.com', 'Alan Cosa', '0976578699', 20, 'prueba', 'confirmada', '2025-11-21', '10:30:00', '$45.000', '2025-11-10 13:54:14'),
-	(17, 'jemprendetumismo@gmail.com', 'Alicia Villasanti', '0976119360', 19, 'assdfsafas', 'confirmada', '2025-11-13', '12:00:00', '$50.000', '2025-11-10 13:57:25'),
-	(18, 'jorgeovando468@gmail.com', 'Alicia Villasanti', '0976578699', 19, 'fffjgfj', 'confirmada', '2025-11-14', '10:30:00', '$45.000', '2025-11-10 14:36:37'),
-	(19, 'jemprendetumismo@gmail.com', 'Alan Cosa', '0976119360', 34, 'jhhg', 'confirmada', '2025-11-28', '18:00:00', '$55.000', '2025-11-10 14:37:50'),
-	(20, 'jorgeovando468@gmail.com', 'Alan Cosa', '0976578699', 54, 'sdsdg', 'pendiente', '2025-11-13', '18:00:00', '$55.000', '2025-11-11 08:46:58'),
-	(21, 'jemprendetumismo@gmail.com', 'Angel Herrera', '0976119360', 20, 'sdaffsda', 'pendiente', '2025-11-14', '09:00:00', '$45.000', '2025-11-11 15:13:21');
-/*!40000 ALTER TABLE `appointments` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;

@@ -40,6 +40,9 @@ async function createAppointment(req, res, next) {
       data: { id }
     });
   } catch (error) {
+    if (error.code === 'ER_DUP_ENTRY') {
+      return res.status(409).json({ error: 'Horario no disponible' });
+    }
     next(error);
   }
 }

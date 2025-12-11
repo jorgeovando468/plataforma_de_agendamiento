@@ -1,8 +1,16 @@
 const db = require('../db');
 
+async function getBookedTimesForDate(date) {
+  const [rows] = await db.execute(
+    "SELECT time FROM appointments WHERE date = ? AND estado <> 'cancelada'",
+    [date]
+  );
+  return rows.map((row) => row.time);
+}
+
 async function isSlotTaken(date, time) {
   const [rows] = await db.execute(
-    'SELECT id FROM appointments WHERE date = ? AND time = ? LIMIT 1',
+    "SELECT id FROM appointments WHERE date = ? AND time = ? AND estado <> 'cancelada' LIMIT 1",
     [date, time]
   );
   return rows.length > 0;
@@ -31,6 +39,18 @@ async function getActiveTimeSlots() {
   return slots;
 }
 
+async function getAvailableTimeSlotsForDate(date) {
+  const slots = await getActiveTimeSlots();
+  if (!date) {
+    return slots;
+  }
+
+  const bookedTimes = await getBookedTimesForDate(date);
+  const bookedSet = new Set(bookedTimes.map((t) => t.toString()));
+
+  return slots.filter((slot) => !bookedSet.has(slot.time_value) && !bookedSet.has(`${slot.time_value}:00`));
+}
+
 async function getBlockedDates() {
   const [dates] = await db.execute('SELECT id, date, reason FROM blocked_dates ORDER BY date ASC');
   return dates;
@@ -49,6 +69,8 @@ module.exports = {
   isSlotTaken,
   createAppointment,
   getActiveTimeSlots,
+  getAvailableTimeSlotsForDate,
   getBlockedDates,
-  getConfigSettings
+  getConfigSettings,
+  getBookedTimesForDate
 };

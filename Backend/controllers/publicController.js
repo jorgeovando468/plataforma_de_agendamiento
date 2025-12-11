@@ -2,7 +2,8 @@ const appointmentService = require('../services/appointmentService');
 
 async function getHorarios(req, res, next) {
   try {
-    const slots = await appointmentService.getActiveTimeSlots();
+    const { date } = req.query;
+    const slots = await appointmentService.getAvailableTimeSlotsForDate(date);
     const times = slots.map((slot) => ({
       id: slot.id,
       value: slot.time_value,
@@ -18,7 +19,8 @@ async function getHorarios(req, res, next) {
 
 async function getAvailableTimes(req, res, next) {
   try {
-    const slots = await appointmentService.getActiveTimeSlots();
+    const { date } = req.params;
+    const slots = await appointmentService.getAvailableTimeSlotsForDate(date);
     const times = slots.map((slot) => ({
       value: slot.time_value,
       text: `${slot.time_display} - $${Number(slot.price).toLocaleString('es-PY')}`,
