@@ -85,6 +85,11 @@ Aplicación completa para gestionar citas de un consultorio psicológico. Incluy
 3. **Frontend**: sirve la carpeta estática `Frontend/` con el servidor que prefieras (ej.: `npx serve Frontend -l 8080`) o abre `index.html` directamente.
 4. **Panel admin**: igual que el frontend, sirve `admin/` de forma estática.
 
+## ❓ Preguntas frecuentes (XAMPP, puertos y MySQL)
+- **¿Necesito XAMPP para usar MySQL?** No. Con `docker compose up` ya se levanta MySQL dentro del contenedor `db`; XAMPP no es necesario y puede quedarse apagado. Solo usa MySQL de XAMPP si decides ejecutar el backend sin Docker y apuntas `DB_HOST/DB_PORT` a esa instancia.
+- **Apache de XAMPP muestra "Port 80 in use"**: el contenedor `frontend` usa el puerto 80 por defecto. Para liberar el puerto, detén los contenedores con `docker compose down`. Si necesitas correr ambos, cambia el puerto de Apache en el panel de XAMPP (p.ej. 8081) o edita `docker-compose.yml` para mapear `frontend` a otro puerto externo (p.ej. `8080:80`).
+- **Conflicto con el puerto de MySQL**: el contenedor expone MySQL en el puerto 3307 del host. Si tienes MySQL local en 3306 (como el de XAMPP), no debería haber choque. Si cambias el puerto de XAMPP o quieres usarlo, ajusta `DB_PORT` en `Backend/.env` para que coincida.
+
 ## 🔍 Comandos útiles
 - Detener servicios Docker: `docker compose down`
 - Reconstruir contenedores tras cambios en código backend: `docker compose build backend && docker compose up -d backend`
