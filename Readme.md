@@ -43,8 +43,9 @@ Aplicación completa para gestionar citas de un consultorio psicológico. Incluy
    ```bash
    docker compose logs -f db                   # revisa el motivo (por ejemplo, tiempo de inicio lento)
    docker compose down -v                      # detiene servicios y borra el volumen db_data
-   docker compose up -d db backend frontend    # recrea MySQL con los datos de ejemplo
+   docker compose up -d db backend frontend    # recrea MySQL con los datos de ejemplo y tablas de configuración
    ```
+   Si ya tenías el volumen `db_data` creado antes de este cambio, este reinicio con `-v` es necesario para que se creen las tablas `time_slots`, `blocked_dates` y `config_settings`.
 4. Comprueba que el backend inició correctamente:
    ```bash
    docker compose logs -f backend
@@ -66,13 +67,14 @@ Aplicación completa para gestionar citas de un consultorio psicológico. Incluy
 - Volúmenes: `db_data` (persistencia MySQL) y `whatsapp_session` (sesiones de WhatsApp Web).
 
 ### Credenciales y datos de ejemplo
-- Base de datos se inicializa con `db/init.sql` (appointments y usuarios admin de muestra).
+- Base de datos se inicializa con los scripts en `db/` (`init.sql` y `config_table.sql`) que crean citas de ejemplo y las tablas de configuración (horarios disponibles, días bloqueados y ajustes públicos).
 - Usuario admin de ejemplo: `admin` con contraseña ya hasheada en la tabla `admin`.
 
 ## 🧪 Ejecución manual sin Docker
-1. **Base de datos**: instala MySQL local, crea la base y carga el esquema:
+1. **Base de datos**: instala MySQL local, crea la base y carga el esquema completo (citas + tablas de configuración):
    ```bash
    mysql -u root -p < db/init.sql
+   mysql -u root -p < db/config_table.sql
    ```
 2. **Backend**:
    ```bash
