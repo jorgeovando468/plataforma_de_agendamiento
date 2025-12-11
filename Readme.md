@@ -39,6 +39,12 @@ Aplicación completa para gestionar citas de un consultorio psicológico. Incluy
    docker rm -f consultorio-frontend consultorio-db 2>/dev/null || true
    docker compose up -d db backend frontend
    ```
+   Si el contenedor **db** aparece como `unhealthy`:
+   ```bash
+   docker compose logs -f db                   # revisa el motivo (por ejemplo, tiempo de inicio lento)
+   docker compose down -v                      # detiene servicios y borra el volumen db_data
+   docker compose up -d db backend frontend    # recrea MySQL con los datos de ejemplo
+   ```
 4. Comprueba que el backend inició correctamente:
    ```bash
    docker compose logs -f backend
