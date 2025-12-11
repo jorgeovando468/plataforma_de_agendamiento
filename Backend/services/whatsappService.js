@@ -1,4 +1,6 @@
 const path = require('path');
+const qrcode = require('qrcode-terminal');
+const { Client, LocalAuth } = require('whatsapp-web.js');
 require('dotenv').config();
 
 let client = null;
@@ -11,59 +13,46 @@ function loadClient() {
     return;
   }
 
-  try {
-    const { Client } = require('go-whatsapp-web-multidevice');
-    client = new Client({
-      dataPath: path.join(__dirname, '..', '.wapp_sessions'),
-      browserArgs: [
-        '--no-sandbox',
-        '--disable-setuid-sandbox',
-        '--disable-dev-shm-usage'
-      ]
-    });
-
-    if (typeof client.on === 'function') {
-      client.on('qr', (qr) => {
-        console.log('\n===========================================');
-        console.log('📱 ESCANEA ESTE QR CON WHATSAPP:');
-        console.log('===========================================\n');
-        console.log(qr);
-        console.log('\n===========================================');
-        console.log('Abre WhatsApp > Dispositivos vinculados > Vincular dispositivo');
-        console.log('===========================================\n');
-      });
-
-      client.on('ready', () => {
-        whatsappReady = true;
-        console.log('✅ WhatsApp listo para enviar mensajes');
-      });
-
-      client.on('disconnected', (reason) => {
-        whatsappReady = false;
-        console.log('⚠️  WhatsApp desconectado:', reason);
-      });
-
-      client.on('auth_failure', (msg) => {
-        whatsappReady = false;
-        console.error('❌ Error de autenticación WhatsApp:', msg);
-      });
+  client = new Client({
+    authStrategy: new LocalAuth({
+      dataPath: path.join(__dirname, '..', '.wapp_sessions')
+    }),
+    puppeteer: {
+      headless: true,
+      args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
     }
+  });
 
-    if (typeof client.initialize === 'function') {
-      client.initialize().catch((err) => {
-        whatsappReady = false;
-        console.error('❌ Error al inicializar WhatsApp:', err.message);
-      });
-    } else if (typeof client.connect === 'function') {
-      client.connect().catch((err) => {
-        whatsappReady = false;
-        console.error('❌ Error al conectar WhatsApp:', err.message);
-      });
-    }
-  } catch (error) {
+  client.on('qr', (qr) => {
+    console.log('\n===========================================');
+    console.log('📱 ESCANEA ESTE QR CON WHATSAPP:');
+    console.log('===========================================\n');
+    qrcode.generate(qr, { small: true });
+    console.log('\n===========================================');
+    console.log('Abre WhatsApp > Dispositivos vinculados > Vincular dispositivo');
+    console.log('===========================================\n');
+  });
+
+  client.on('ready', () => {
+    whatsappReady = true;
+    console.log('✅ WhatsApp listo para enviar mensajes');
+  });
+
+  client.on('disconnected', (reason) => {
+    whatsappReady = false;
+    console.log('⚠️  WhatsApp desconectado:', reason);
+  });
+
+  client.on('auth_failure', (msg) => {
+    whatsappReady = false;
+    console.error('❌ Error de autenticación WhatsApp:', msg);
+  });
+
+  client.initialize().catch((err) => {
+    whatsappReady = false;
     whatsappEnabled = false;
-    console.log('📵 go-whatsapp-web-multidevice no está disponible. Se omite el envío de WhatsApp. Motivo:', error.message);
-  }
+    console.error('❌ Error al inicializar WhatsApp:', err.message);
+  });
 }
 
 loadClient();
