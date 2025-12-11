@@ -33,6 +33,12 @@ Aplicación completa para gestionar citas de un consultorio psicológico. Incluy
    ```bash
    docker compose up -d db backend frontend
    ```
+   Si recibes un error de **"container name ... is already in use"**, limpia contenedores previos con:
+   ```bash
+   docker compose down               # detiene el stack actual
+   docker rm -f consultorio-frontend consultorio-db 2>/dev/null || true
+   docker compose up -d db backend frontend
+   ```
 4. Comprueba que el backend inició correctamente:
    ```bash
    docker compose logs -f backend
