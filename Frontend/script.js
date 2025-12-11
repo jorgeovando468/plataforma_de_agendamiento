@@ -28,6 +28,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const summaryNombreCompleto = document.getElementById('summary-nombre_completo');
     const summaryTelefono = document.getElementById('summary-telefono');
 
+    const api = window.apiService;
+
     // Variables de configuración dinámica
     let blockedWeekdays = [0, 6]; // Por defecto: Domingos y Sábados
     let blockedDates = [];
@@ -36,22 +38,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Cargar configuración dinámica desde el backend
     async function loadPublicConfig() {
         try {
-            // Cargar configuración general
-            const configRes = await fetch('http://localhost:3000/api/config/public');
-            const configData = await configRes.json();
-            if (configData.status === 'success') {
-                const config = configData.data;
-                blockedWeekdays = config.blocked_weekdays?.split(',').map(d => parseInt(d.trim())) || [0, 6];
-                console.log('✅ Configuración cargada:', config);
-            }
+            const config = await api.getPublicConfig();
+            blockedWeekdays = config.blocked_weekdays?.split(',').map(d => parseInt(d.trim())) || [0, 6];
 
-            // Cargar fechas bloqueadas
-            const datesRes = await fetch('http://localhost:3000/api/blocked-dates');
-            const datesData = await datesRes.json();
-            if (datesData.status === 'success') {
-                blockedDates = datesData.data || [];
-                console.log('✅ Fechas bloqueadas:', blockedDates);
-            }
+            const dates = await api.getAvailableDates();
+            blockedDates = dates || [];
         } catch (error) {
             console.error('⚠️  Error cargando configuración:', error);
             // Usar valores por defecto en caso de error
@@ -101,41 +92,18 @@ document.addEventListener('DOMContentLoaded', function() {
             timeSelect.innerHTML = '<option value="">Cargando horarios disponibles...</option>';
 
             try {
-                const response = await fetch(`http://localhost:3000/api/available-times/${date}`);
-                if (!response.ok) throw new Error('Error obteniendo horarios');
-                const times = await response.json();
-
+                const times = await api.getAvailableTimes(date);
                 timeSelect.innerHTML = '<option value="">Selecciona una hora disponible</option>';
                 times.forEach(time => {
                     const option = document.createElement('option');
                     option.value = time.value;
-                    option.textContent = time.text;
-                    // Extracción del precio
-                    const priceMatch = time.text.match(/\$[\d.,]+/);
-                    option.dataset.price = priceMatch ? priceMatch[0].replace('$', '') : '0';
+                    option.textContent = time.text || `${time.label} - $${time.price}`;
+                    option.dataset.price = time.price;
                     timeSelect.appendChild(option);
                 });
-
-                console.log('✅ Horariossss cargados:', times.length, 'opciones');
             } catch (error) {
                 console.error('❌ Error cargando horarios:', error);
-                // Fallback a datos por defecto si la API falla
-                const times = [
-                    { value: "09:30", text: "9:30 AM - $45.000" },
-                    { value: "10:30", text: "10:30 AM - $45.000" },
-                    { value: "12:00", text: "12:00 PM - $50.000" },
-                    { value: "15:00", text: "3:00 PM - $50.000" },
-                    { value: "16:30", text: "4:30 PM - $55.000" },
-                    { value: "18:00", text: "6:00 PM - $55.000" }
-                ];
-                timeSelect.innerHTML = '<option value="">Selecciona una hora disponible</option>';
-                times.forEach(time => {
-                    const option = document.createElement('option');
-                    option.value = time.value;
-                    option.textContent = time.text;
-                    option.dataset.price = time.text.split('$')[1]?.trim() || '0';
-                    timeSelect.appendChild(option);
-                });
+                timeSelect.innerHTML = '<option value="">No hay horarios disponibles</option>';
             }
 
             timeSelect.disabled = false;
@@ -147,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function() {
     timeSelect.addEventListener('change', function() {
         if (this.value) {
             const selectedOption = this.options[this.selectedIndex];
-            const priceText = selectedOption.dataset.price;
+            const priceText = Number(selectedOption.dataset.price || 0).toLocaleString('es-PY');
             priceDisplay.textContent = '$' + priceText;
             priceContainer.classList.remove('hidden');
         } else {
@@ -221,7 +189,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const timeText = timeSelect.options[timeSelect.selectedIndex].text;
             summaryTime.textContent = timeText.split('-')[0].trim();
 
-            summaryPrice.textContent = '$' + timeSelect.options[timeSelect.selectedIndex].dataset.price;
+            const selectedPrice = Number(timeSelect.options[timeSelect.selectedIndex].dataset.price || 0).toLocaleString('es-PY');
+            summaryPrice.textContent = '$' + selectedPrice;
 
             loadingState.classList.add('hidden');
             appointmentSummary.classList.remove('hidden');
@@ -325,7 +294,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     timeSelect.value = formData.time;
                     const selectedOption = timeSelect.options[timeSelect.selectedIndex];
                     if (selectedOption && selectedOption.dataset.price) {
-                        priceDisplay.textContent = '$' + selectedOption.dataset.price;
+                        priceDisplay.textContent = '$' + Number(selectedOption.dataset.price).toLocaleString('es-PY');
                         priceContainer.classList.remove('hidden');
                     }
                 }
