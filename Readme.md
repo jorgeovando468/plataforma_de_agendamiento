@@ -96,6 +96,9 @@ Aplicación completa para gestionar citas de un consultorio psicológico. Incluy
   2. En `Backend/.env` pon `ENABLE_WHATSAPP=true`. Opcionalmente ajusta `WHATSAPP_LAUNCH_TIMEOUT_MS` si tu hardware es lento.
   3. Arranca el backend (`docker compose up -d backend` o `npm start`). En logs de `backend` aparecerá un QR: escanéalo desde WhatsApp > Dispositivos vinculados.
   4. Si ves el mensaje “Timed out while trying to connect to the browser”, reconstruye la imagen para reinstalar Chromium: `docker compose build backend && docker compose up -d backend`. Si corres sin Docker, instala Chromium/Chrome y apunta `PUPPETEER_EXECUTABLE_PATH` a su ejecutable.
+- **Error al hacer `docker compose build`: `invalid file request .wapp_sessions/session/SingletonCookie`**
+  - El contexto de build estaba incluyendo la carpeta de sesiones de WhatsApp (`.wapp_sessions`), que contiene sockets/archivos bloqueados y puede superar cientos de MB. Ya se añadió a `.dockerignore` para excluirla.
+  - Si te vuelve a aparecer, elimina la carpeta local antes de reconstruir: `rm -rf .wapp_sessions` (o recrea los contenedores con `docker compose down -v && docker compose up -d`).
 
 ## 🔍 Comandos útiles
 - Detener servicios Docker: `docker compose down`
