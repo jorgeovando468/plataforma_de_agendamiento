@@ -4,7 +4,11 @@ require('dotenv').config();
 
 let pool = null;
 
-async function createConnection(retries = 10, delay = 5000) {
+const RETRIES = Number(process.env.DB_WAIT_RETRIES || 20);
+const DELAY_MS = Number(process.env.DB_WAIT_DELAY_MS || 5000);
+const DB_PORT = Number(process.env.DB_PORT || 3306);
+
+async function createConnection(retries = RETRIES, delay = DELAY_MS) {
   for (let i = 0; i < retries; i++) {
     try {
       pool = mysql.createPool({
@@ -12,7 +16,7 @@ async function createConnection(retries = 10, delay = 5000) {
         user: process.env.DB_USER || 'root',
         password: process.env.DB_PASSWORD || 'admin123',
         database: process.env.DB_NAME || 'consultorio_psicologico',
-        port: 3306,
+        port: DB_PORT,
         waitForConnections: true,
         connectionLimit: 10,
         queueLimit: 0
@@ -26,8 +30,8 @@ async function createConnection(retries = 10, delay = 5000) {
       return pool;
     } catch (error) {
       console.log(`⚠️  Intento ${i + 1}/${retries} - Esperando MySQL...`);
-      console.log(`   Error: ${error.message}`);
-      
+      console.log(`   Error: ${error.message} (host: ${process.env.DB_HOST || 'db'}:${DB_PORT})`);
+
       if (i === retries - 1) {
         console.error('❌ No se pudo conectar a MySQL después de varios intentos');
         throw error;
