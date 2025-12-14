@@ -1,0 +1,19 @@
+# Ignore node modules and build artifacts
+node_modules
+npm-debug.log*
+yarn-error.log*
+
+# Environment files
+.env
+.env.*
+
+# WhatsApp / Puppeteer session data
+.wapp_sessions
+.wapp_sessions/**/*
+.wwebjs_auth
+.wwebjs_auth/**/*
+puppeteer_cache
+
+# OS/editor cruft
+.DS_Store
+Thumbs.db
