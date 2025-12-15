@@ -1,3 +1,4 @@
+const fs = require('fs/promises');
 const path = require('path');
 const qrcode = require('qrcode-terminal');
 const { Client, LocalAuth } = require('whatsapp-web.js');
@@ -8,17 +9,53 @@ let client = null;
 let whatsappReady = false;
 let whatsappEnabled = process.env.ENABLE_WHATSAPP === 'true';
 
-function loadClient() {
+const authPath = path.join(__dirname, '..', '.wapp_sessions');
+
+async function removeLockFiles(dir) {
+  const entries = await fs.readdir(dir, { withFileTypes: true });
+
+  for (const entry of entries) {
+    const fullPath = path.join(dir, entry.name);
+
+    if (entry.isDirectory()) {
+      await removeLockFiles(fullPath);
+      continue;
+    }
+
+    if (['SingletonLock', 'SingletonSocket', 'SingletonCookie'].includes(entry.name)) {
+      try {
+        await fs.unlink(fullPath);
+        console.log(`🧹 Eliminado lock de WhatsApp: ${fullPath}`);
+      } catch (error) {
+        console.warn(`⚠️  No se pudo eliminar ${entry.name}: ${error.message}`);
+      }
+    }
+  }
+}
+
+async function cleanupAuthLocks() {
+  try {
+    await removeLockFiles(authPath);
+  } catch (error) {
+    if (error.code !== 'ENOENT') {
+      console.warn(`⚠️  Limpieza de locks de WhatsApp falló: ${error.message}`);
+    }
+  }
+}
+
+async function loadClient() {
   if (!whatsappEnabled) {
     console.log('📵 WhatsApp deshabilitado por configuración.');
     return;
   }
 
+  await cleanupAuthLocks();
+
   const executablePath = process.env.PUPPETEER_EXECUTABLE_PATH || puppeteer.executablePath();
 
   client = new Client({
     authStrategy: new LocalAuth({
-      dataPath: path.join(__dirname, '..', '.wapp_sessions')
+      dataPath: authPath
     }),
     puppeteer: {
       headless: true,
@@ -62,7 +99,9 @@ function loadClient() {
   });
 }
 
-loadClient();
+loadClient().catch((error) => {
+  console.error('❌ No se pudo iniciar el cliente de WhatsApp:', error.message);
+});
 
 function formatPhone(telefono) {
   let numero = telefono.replace(/\s/g, '').replace(/\+/g, '');
@@ -141,9 +180,28 @@ function getStatus() {
   };
 }
 
+async function shutdown() {
+  if (client) {
+    try {
+      await client.destroy();
+      console.log('👋 Cliente de WhatsApp cerrado correctamente.');
+    } catch (error) {
+      console.error('⚠️  Error al cerrar el cliente de WhatsApp:', error.message);
+    }
+  }
+  client = null;
+  whatsappReady = false;
+}
+
+function getClient() {
+  return client;
+}
+
 module.exports = {
   sendConfirmationMessage,
   sendReminderMessage,
   scheduleReminderMessage,
-  getStatus
+  getStatus,
+  shutdown,
+  getClient
 };
