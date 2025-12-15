@@ -25,6 +25,7 @@ services:
     build: ./Backend
     container_name: consultorio-backend
     restart: unless-stopped
+    init: true
     ports:
       - "3000:3000"
     environment:
@@ -35,14 +36,14 @@ services:
       - JWT_SECRET=tu_jwt_secret_aqui
       - EMAIL_USER=jorgeovando468@gmail.com
       - EMAIL_PASS=gigkjgghajslexcu
-      - ENABLE_WHATSAPP=false
+      - ENABLE_WHATSAPP=true
       - ENABLE_EMAIL=true
-      - NODE_ENV=development
+      - NODE_ENV=production
       - PORT=3000
     depends_on:
       db:
         condition: service_healthy
-    command: npm run dev
+    command: npm start
     volumes:
       - ./Backend:/app
       - /app/node_modules

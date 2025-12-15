@@ -33,6 +33,7 @@ Aplicación completa para gestionar citas de un consultorio psicológico. Incluy
    ```bash
    docker compose up -d db backend frontend
    ```
+   En Docker el backend arranca con `npm start` (no `npm run dev`) para evitar reinicios de nodemon que bloquean el perfil de Chromium/WhatsApp. Usa `npm run dev` solo en ejecución local fuera de contenedores.
    Si recibes un error de **"container name ... is already in use"**, limpia contenedores previos con:
    ```bash
    docker compose down               # detiene el stack actual
@@ -65,6 +66,11 @@ Aplicación completa para gestionar citas de un consultorio psicológico. Incluy
 - **3000**: Backend Express.
 - **3307**: MySQL (mapeado al 3306 interno del contenedor `db`).
 - Volúmenes: `db_data` (persistencia MySQL) y `whatsapp_session` (sesiones de WhatsApp Web).
+
+#### Reiniciar solo el backend tras cambios
+```bash
+docker compose up -d --build backend
+```
 
 ### Credenciales y datos de ejemplo
 - Base de datos se inicializa con los scripts en `db/` (`init.sql` y `config_table.sql`) que crean citas de ejemplo y las tablas de configuración (horarios disponibles, días bloqueados y ajustes públicos).
