@@ -103,6 +103,15 @@ docker compose up -d --build backend
   2. En `Backend/.env` pon `ENABLE_WHATSAPP=true`. Opcionalmente ajusta `WHATSAPP_LAUNCH_TIMEOUT_MS` si tu hardware es lento.
   3. Arranca el backend (`docker compose up -d backend` o `npm start`). En logs de `backend` aparecerá un QR: escanéalo desde WhatsApp > Dispositivos vinculados.
   4. Si ves el mensaje “Timed out while trying to connect to the browser”, reconstruye la imagen para reinstalar Chromium: `docker compose build backend && docker compose up -d backend`. Si corres sin Docker, instala Chromium/Chrome y apunta `PUPPETEER_EXECUTABLE_PATH` a su ejecutable.
+- **¿Cómo ver o regenerar el QR de WhatsApp?**
+  - Con Docker: `docker compose logs -f backend | grep -A4 -B2 "QR"` (o simplemente `docker compose logs -f backend`) hasta que veas el bloque con `📱 ESCANEA ESTE QR CON WHATSAPP`.
+  - Sin Docker (local): desde `Backend/`, ejecuta `npm start` (o `npm run dev`) y revisa la consola donde corre el backend.
+  - Si necesitas un QR nuevo (por ejemplo, cambiaste de dispositivo), elimina solo la carpeta de sesión para forzar la regeneración y vuelve a iniciar el backend:
+    ```bash
+    rm -rf Backend/.wwebjs_auth   # fuera de Docker
+    # en Docker, recrea el volumen: docker compose down -v whatsapp_session && docker compose up -d backend
+    ```
+  - Cuando el QR aparezca, abre WhatsApp > **Dispositivos vinculados** > **Vincular dispositivo** y escanéalo. Verás en los logs: `✅ WhatsApp listo para enviar mensajes`.
 - **Error al hacer `docker compose build`: `invalid file request .wapp_sessions/session/SingletonCookie`**
   - El contexto de build estaba incluyendo la carpeta de sesiones de WhatsApp (`.wapp_sessions`), que contiene sockets/archivos bloqueados y puede superar cientos de MB. Ya se añadió a `.dockerignore` para excluirla.
   - Si te vuelve a aparecer, elimina la carpeta local antes de reconstruir: `rm -rf .wapp_sessions` (o recrea los contenedores con `docker compose down -v && docker compose up -d`).
