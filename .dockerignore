@@ -1,0 +1,27 @@
+# Exclude git metadata and local dev artifacts
+.git
+.gitignore
+
+# Node modules and build outputs
+node_modules
+Backend/node_modules
+Frontend/node_modules
+dist
+build
+npm-debug.log*
+yarn-error.log*
+
+# Environment and secrets
+.env
+Backend/.env
+Frontend/.env
+.env.*
+
+# Local sessions/state (WhatsApp, Puppeteer, etc.)
+.wapp_sessions
+.wapp_sessions/**/*
+puppeteer_cache
+
+# OS/editor noise
+.DS_Store
+Thumbs.db

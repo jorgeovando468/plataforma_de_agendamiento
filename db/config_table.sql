@@ -1,3 +1,7 @@
+-- Asegurar base de datos y esquema correcto
+CREATE DATABASE IF NOT EXISTS consultorio_psicologico;
+USE consultorio_psicologico;
+
 -- Tabla para horarios disponibles y precios
 CREATE TABLE IF NOT EXISTS time_slots (
   id INT AUTO_INCREMENT PRIMARY KEY,
